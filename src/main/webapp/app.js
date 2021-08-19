@@ -1,22 +1,19 @@
 function doDecode() {
-  $("#display").slideUp('slow', function () {
     $("#display").html("Loading...").show();
     var tag = $('#tag_field').val();
     var meta = $('#tagmetaset_field').val();
     var value = $('#value_field').val();
-    if (ga) {
-      ga('send', 'event', tag, meta);
-    }
-    $.post('/t/decode', {tag: tag, value: value, meta: meta}, displayDecoding);
-  });
+    var base = document.getElementsByTagName("base")[0].href;
+    $.post(base + '/t/decode', {tag: tag, value: value, meta: meta}, displayDecoding);
 }
 
 function getPermalinkUrl() {
   var tag = $('#tag_field').val();
   var meta = $('#tagmetaset_field').val();
   var value = $('#value_field').val();
-  var linkBack = '/t/decode/' + tag + '/' + meta + '/' + encodeURIComponent(value);
-  return window.location.href.replace(window.location.pathname, linkBack);
+  var base = document.getElementsByTagName("base")[0].href;
+  var linkBack = base + 't/decode/' + tag + '/' + meta + '/' + encodeURIComponent(value);
+  return linkBack;
 }
 
 function displayDecoding(data) {
@@ -73,11 +70,6 @@ function onOptionChange() {
   var value_field = $('#value_field');
   var tagField = document.getElementById('tag_field');
   var selectedOption = tagField.options[tagField.selectedIndex];
-  var maxLength = selectedOption.getAttribute("data-maxlength");
-  value_field.attr("maxLength", maxLength);
-  if (value_field.val().length > maxLength) {
-    value_field.val(value_field.val().substr(0, +maxLength))
-  }
   var background = $("#tag-background");
   var longName = selectedOption.getAttribute("data-longName");
   var shortBackground = selectedOption.getAttribute("data-short");

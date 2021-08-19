@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
 import org.springframework.web.bind.annotation.*
 import java.net.URLEncoder
-import java.util.*
 import java.util.logging.Level
 import java.util.logging.Logger
 
@@ -50,12 +49,15 @@ class DecodeController {
     return response
   }
 
-  private fun decodeInto(tag: String, value: String, meta: String, response: MutableMap<String, Any>) {
-    logger.info("Request to decode tag [$tag] and value [$value] and meta [$meta]")
+  private fun decodeInto(tag: String, rawValue: String, meta: String, response: MutableMap<String, Any>) {
+    logger.info("Request to decode tag [$tag] and value [$rawValue] and meta [$meta]")
     val tagInfo = RootDecoder.getTagInfo(tag)
     if (tagInfo == null) {
       logger.fine("Unknown tag")
       throw DecodeFailedException("Unknown tag")
+    }
+    val value = rawValue.filter { c ->
+      c in '0'..'9' || c in 'a'..'f' || c in 'A'..'F'
     }
     val error = tagInfo.decoder.validate(value)
     if (error != null) {

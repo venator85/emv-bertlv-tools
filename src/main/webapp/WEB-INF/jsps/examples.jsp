@@ -10,6 +10,5 @@
 </head>
 <body>
     <jsp:include page="/img/example1.svg"/>
-    <jsp:include page="gaTracking.jsp"/>
 </body>
 </html>

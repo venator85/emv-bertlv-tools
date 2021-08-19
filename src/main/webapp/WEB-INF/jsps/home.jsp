@@ -15,7 +15,6 @@
         <select id="tag_field" onchange="onOptionChange()" class="form-control">
           <c:forEach items="${tagInfos}" var="tagInfo">
             <option value="${tagInfo.key}"
-                    data-maxlength="${tagInfo.value.maxLength}"
                     data-longName="${tagInfo.value.longName}"
                     data-short="${tagInfo.value.shortBackground}"
                     data-long="${tagInfo.value.longBackground}">
@@ -56,13 +55,13 @@
           <div id="example-list">
             Try an example:
             <ul>
-              <li><a href="/t/decode/95/EMV/0000880000">Terminal Verification Results (TVR)</a></li>
-              <li><a href="/t/decode/9B/EMV/ff00">Transaction Status Indicator</a></li>
-              <li><a href="/t/decode/8E/EMV/0000000000000000410342031E031F02">Cardholder Verification Method List</a>
+              <li><a href="${pageContext.request.contextPath}/t/decode/95/EMV/0000880000">Terminal Verification Results (TVR)</a></li>
+              <li><a href="${pageContext.request.contextPath}/t/decode/9B/EMV/ff00">Transaction Status Indicator</a></li>
+              <li><a href="${pageContext.request.contextPath}/t/decode/8E/EMV/0000000000000000410342031E031F02">Cardholder Verification Method List</a>
               </li>
-              <li><a href="/t/decode/constructed/EMV/77299f2701009f360200419f2608c74d18b08248fefc9f10120110201009248400000000000000000029ff">Response to Generate AC</a></li>
+              <li><a href="${pageContext.request.contextPath}/t/decode/constructed/EMV/77299f2701009f360200419f2608c74d18b08248fefc9f10120110201009248400000000000000000029ff">Response to Generate AC</a></li>
             </ul>
-            See how some of these elements appear on a <a href="/t/examples">receipt</a>.
+            See how some of these elements appear on a <a href="${pageContext.request.contextPath}/t/examples">receipt</a>.
           </div>
         </c:otherwise>
       </c:choose>
@@ -73,7 +72,6 @@
     <p><a href="https://github.com/wcurrie/emv-bertlv-tools">Github</a></p>
   </div>
 </div>
-<jsp:include page="gaTracking.jsp"/>
 <c:if test="${not empty value}">
   <script>
     $('#tag_field').val('<c:out value="${tag}"/>');
